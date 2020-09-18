@@ -29,7 +29,8 @@ While shut down, if button is connected to GPIO pin 5, then pressing the button 
 
 ## Debugging
 
-* to manualy start pishutdown script, stop first systemd unit
+* stop systemd unit
+* start pishutdown script
 
 ```
 systemctl stop pi-shutdown
@@ -38,13 +39,13 @@ sudo pishutdown.py
 
 ## Package building script
 
-Install prerequisites
+* install prerequisites
 
 ```
 sudo apt install build-essential devscripts debhelper --no-install-recommends
 ```
 
-Source building script and manage changelog
+* source building script and manage changelog
 
 ```
 . build_debian_package
@@ -52,7 +53,7 @@ dch --increment
 dch --release
 ```
 
-Build package
+* build package
 
 ```
 ./build_debian_package
