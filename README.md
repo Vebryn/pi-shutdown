@@ -1,14 +1,59 @@
 pi-shutdown
 ===========
 
-Shutdown/reboot(/power on) Raspberry Pi with pushbutton
+Shutdown(/power on) Raspberry Pi with pushbutton
 
-## Usage:
-Connect pushbutton to GPIO pin 5 and ground then run:
+## What's new?
+
+* button debouncing from GPIO library instead of manual debouncing
+* python 3.7 compatibility
+* code linting (pylint3)
+* reboot feature removed as power off/on do the same
+* systemd unit to manage script execution
+* Debian package building script
+
+## Installation
+
+* connect pushbutton to GPIO pin 5 and ground
+* power on rpi
+* install pi-shutdown package
+
 ```
-sudo python pishutdown.py
+dpkg -i py-shutdown_1.x_all.deb
 ```
 
-When button is pressed for less than 3 seconds, Pi reboots. If pressed for more than 3 seconds it shuts down.
+* systemd unit starts automatically
+
+When button is pressed, Pi shuts down.
 While shut down, if button is connected to GPIO pin 5, then pressing the button powers on Pi.
 
+## Debugging
+
+* to manualy start pishutdown script, stop first systemd unit
+
+```
+systemctl stop pi-shutdown
+sudo pishutdown.py
+```
+
+## Package building script
+
+Install prerequisites
+
+```
+sudo apt install build-essential devscripts debhelper --no-install-recommends
+```
+
+Source building script and manage changelog
+
+```
+. build_debian_package
+dch --increment
+dch --release
+```
+
+Build package
+
+```
+./build_debian_package
+```

@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# set environment variables used by dch command
+export DEBEMAIL=$(git config --get "user.email")
+export NAME=$(git config --get "user.name")
+
+main(){
+  # debuild will look at debian directory
+  # script will fail if started from another directory
+  if [[ -d debian ]]; then
+    echo "debian directory not found, cannot continue"
+    exit 1
+  fi
+
+  echo "Building package"
+  debuild -uc -us
+
+  echo "Removing temporary files"
+  rm -v ../*.build ../*.buildinfo ../*.changes ../*.dsc ../*.tar.gz
+}
+
+# allow to source the script in order to set environment variables
+[[ "$0" == "$BASH_SOURCE" ]] && main "$@"

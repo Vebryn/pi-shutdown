@@ -1,0 +1,9 @@
+Source: pi-shutdown
+Maintainer: Vebryn <vebryn@mailo.com>
+Section: misc
+Priority: optional
+
+Package: pi-shutdown
+Architecture: all
+Depends: python3-rpi.gpio
+Description: Shutdown/reboot(/power on) Raspberry Pi with pushbutton
